@@ -2,9 +2,13 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "reverse-string.js",
+  "main": "lib/task.1.1-reverse-string.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "task1": "node lib/task.1.1-reverse-string.js",
+    "task2": "node lib/task.1.2-csv-to-json.js",
+    "build": "./node_modules/.bin/babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -18,6 +22,12 @@
   },
   "homepage": "https://github.com/navitskyd/node-js-training#readme",
   "dependencies": {
+    "csvtojson": "^2.0.10",
     "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.4"
   }
 }
