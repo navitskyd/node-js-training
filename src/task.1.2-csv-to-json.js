@@ -24,9 +24,6 @@ input1.pipe(transform1)
     .on('error', (err) => {
         console.error(err)
     })
-    .on('error', (err) => {
-        console.error(err)
-    })
     .pipe(output1)
     .on('error', (err) => {
         console.error(err)
