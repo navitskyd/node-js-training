@@ -9,7 +9,7 @@
     "task1.1": "nodemon src/task.1.1-reverse-string.js",
     "task1.2": "nodemon src/task.1.2-csv-to-json.js",
     "task2": "nodemon src/users/start.ts",
-    "task2a": "nodemon src/users2/start.js",
+    "task2a": "nodemon src/users-server/start.ts",
     "build": "npx babel src -d lib"
   },
   "repository": {
@@ -25,7 +25,9 @@
   "homepage": "https://github.com/navitskyd/node-js-training#readme",
   "dependencies": {
     "csvtojson": "^2.0.10",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-joi-validation": "^5.0.0",
+    "joi": "^17.4.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.4",
