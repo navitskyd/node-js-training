@@ -1,5 +1,5 @@
 import express from 'express';
-import {ApiUsersRoute} from "./routes/api";
+import { ApiUsersRoute } from './routes/api';
 
 const app = express();
 
@@ -9,4 +9,5 @@ app.use(express.json());
 app.set('case sensitive routing', true);
 app.set('strict routing', true);
 
-new ApiUsersRoute(app,'/api/users');
+const apiUsersRoute = new ApiUsersRoute(app, '/api/users');
+apiUsersRoute.getRouter();

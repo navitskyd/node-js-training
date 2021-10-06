@@ -7,7 +7,7 @@ export class User {
     age: number;
     isDeleted: boolean;
 
-    delete() {
+    delete(): void {
         this.isDeleted = true;
     }
 
@@ -15,10 +15,8 @@ export class User {
     constructor() {
         this.id = crypto.randomUUID();
         this.isDeleted = false;
+        this.login = '';
+        this.password = '';
+        this.age = -1;
     }
-
-
 }
-
-
-

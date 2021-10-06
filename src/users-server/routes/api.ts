@@ -1,8 +1,8 @@
-import {UserService} from "../services/users";
-import {BaseRoute} from "./BaseRoute";
-import {UrlUtils} from "../services/url-utils";
-import * as Joi from 'joi'
-import {createValidator} from 'express-joi-validation'
+import { UserService } from '../services/users';
+import { BaseRoute } from './BaseRoute';
+import * as Joi from 'joi';
+import { createValidator } from 'express-joi-validation';
+import { Application } from 'express';
 
 const userCreateQuerySchema = Joi.object({
     login: Joi.string().alphanum().min(3).max(30).required(),
@@ -15,42 +15,39 @@ const validator = createValidator();
 const userService = UserService.getInstance();
 
 export class ApiUsersRoute extends BaseRoute {
-
-    constructor(app, basePath: string) {
+    constructor(app: Application, basePath: string) {
         super(app, basePath);
     }
 
     registerResources() {
-        this.router
-            .get('/', function (req, res, next) {
-                const {limit, login} = req.query;
-                if (limit || login) {
-                    let usersSubList = userService.getAutoSuggestUsers(UrlUtils.getSingleQueryParam(login), parseInt(UrlUtils.getSingleQueryParam(limit)));
-                    res.send(usersSubList);
-                    return;
-                }
-                res.send(userService.getAll());
+        this.getRouter()
+            .get('/', (req, res) => {
+                let { limit, login } = req.query;
+                login = login || '';
+                limit = limit || '0';
+                const usersSubList = userService.getAutoSuggestUsers(login.toString(), parseInt(limit.toString(), 2));
+                res.send(usersSubList);
+                return;
             })
-            .post('/', validator.body(userCreateQuerySchema), function (req
-                                                                        /*: ValidatedRequest<UserCreateRequestSchema>*/
-                , res, next) {
-                let user = userService.convertObject(req.body);
-                let userCreated = userService.createUser(user);
-                if (userCreated) {
-                    res.send("User " + user.id + " created.");
-                } else {
-                    res.status(409).json("User was not created!");
-                }
-            })
-            .get('/:userId', function (req, res, next) {
+            .post('/', validator.body(userCreateQuerySchema)
+                , (req, res) => {
+                    const user = userService.convertObject(req.body);
+                    const userCreated = userService.createUser(user);
+                    if (userCreated) {
+                        res.send(`User ${user.id} created.`);
+                    } else {
+                        res.status(409).json('User was not created!');
+                    }
+                })
+            .get('/:userId', (req, res) => {
                 const user = userService.findUserByID(req.params['userId']);
-                if(user){
+                if (user) {
                     res.send(user);
-                }else {
-                    res.status(404).json("User was not found");
+                } else {
+                    res.status(404).json('User was not found');
                 }
             })
-            .delete('/:userId', function (req, res, next) {
+            .delete('/:userId', (req, res) => {
                 res.send(userService.deleteUser(req.params['userId']));
             });
     }
