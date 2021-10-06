@@ -17,8 +17,8 @@ const limitSchema = Joi.object({
 const validator = createValidator();
 const userService = UserService.getInstance();
 
-const ROOT_URL: string = '/';
-const USER_URL: string = ROOT_URL + ':userId';
+const ROOT_URL = '/';
+const USER_URL = `${ROOT_URL  }:userId`;
 
 export class ApiUsersRoute extends BaseRoute {
     constructor(app: Application, basePath: string) {
@@ -41,7 +41,8 @@ export class ApiUsersRoute extends BaseRoute {
                         .catch((err) => {
                             res.status(409).json(`User was not created: ${err}`);
                         });
-                    if (userCreated && userCreated['rowCount'] === 1) {
+                    console.log(typeof userCreated);
+                    if (userCreated) {
                         res.send(`User ${user.id} created.`);
                     } else {
                         res.status(409).json(`Unexpected response: ${JSON.stringify(userCreated)}`);

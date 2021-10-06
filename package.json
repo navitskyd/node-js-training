@@ -9,17 +9,11 @@
     "task1.1": "nodemon src/task.1.1-reverse-string.js",
     "task1.2": "nodemon src/task.1.2-csv-to-json.js",
     "task2": "nodemon src/users/start.ts",
-
-    "users": "nodemon src/users-server/start.ts",
-
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-
+    "dev": "nodemon src/users-server/start.ts ",
     "lint": "eslint -- src/users-server/**",
-    "build:types": "tsc --emitDeclarationOnly",
-    "prebuild": "npm run lint ",
-    "build": "npx babel src/users-server --out-dir dist --extensions \".ts,.tsx\" --source-maps true"
-
+    "1prebuild": "npm run lint ",
+    "build": "npx babel src/users-server --out-dir dist --extensions \".ts,.tsx\" --source-maps true",
+    "prod": "node dist/start.js --trace-warnings"
   },
   "repository": {
     "type": "git",
