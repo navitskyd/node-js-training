@@ -17,8 +17,8 @@ export class UserService {
         let result = dbService.users;
         if (loginSubstring) {
             result = result
-                .sort((a, b) => a.login > b.login ? 1 : -1)
-                .filter(user => user.login.indexOf(loginSubstring) >= 0);
+                .filter(user => user.login.includes(loginSubstring))
+                .sort((a, b) => a.login > b.login ? 1 : -1);
         }
         limit = limit || 5;
         return result.slice(0, limit);

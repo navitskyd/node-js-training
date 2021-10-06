@@ -43,7 +43,12 @@ export class ApiUsersRoute extends BaseRoute {
                 }
             })
             .get('/:userId', function (req, res, next) {
-                res.send(userService.findUserByID(req.params['userId']));
+                const user = userService.findUserByID(req.params['userId']);
+                if(user){
+                    res.send(user);
+                }else {
+                    res.status(404).json("User was not found");
+                }
             })
             .delete('/:userId', function (req, res, next) {
                 res.send(userService.deleteUser(req.params['userId']));
