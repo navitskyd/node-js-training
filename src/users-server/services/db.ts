@@ -1,38 +1,37 @@
 import {User} from "../entities/User";
+import {Postgres} from "./postgres";
+
 
 export class Db {
     private static _instance: Db = new Db();
+    private postgres: Postgres;
 
     private constructor() {
+        this.postgres = new Postgres();
     }
 
     public static get instance(): Db {
         return this._instance;
     }
 
-    private _users: User[] = [];
-    private ids: string[] = [];
-
-    get users(): User[] {
-        return this._users;
+    getUsersByLogin(loginSubstring: string, limit: number): Promise<User[]> {
+        return this.postgres.getUsersByLogin(loginSubstring, limit);
     }
 
-    add(user: User) {
-        console.log("Adding user: " + JSON.stringify(user));
-
-        this._users.push(user);
-        this.ids.push(user.id);
-        console.log("Total users: " + this._users.length);
-        let random = Math.ceil(Math.random() * 100);
-        return random % 7 > 0;
+    add(user: User): Promise<User> {
+        return this.postgres.create(user);
     }
 
-    getUserById(userId: string): User {
-        let index = this.ids.indexOf(userId);
-        if (index >= 0) {
-            return this._users[index];
-        }
-        return null;
+    getUserById(userId: string): Promise<User> {
+        return this.postgres.getUserById(userId);
+    }
+
+    deleteUserById(userId: string) {
+        return this.postgres.deleteUserById(userId);
+    }
+
+    markForDeleteUserById(userId: string) {
+        return this.postgres.markForDeleteUserById(userId);
     }
 }
 

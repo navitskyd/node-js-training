@@ -7,6 +7,7 @@ export class User {
     age: number;
     isDeleted: boolean;
 
+
     delete() {
         this.isDeleted = true;
     }
