@@ -1,5 +1,5 @@
-import {User} from "../entities/User";
-import {Postgres} from "./postgres";
+import { User } from '../entities/User';
+import { Postgres } from './postgres';
 
 
 export class Db {
@@ -7,10 +7,11 @@ export class Db {
     private postgres: Postgres;
 
     private constructor() {
+        console.log('Create DB service');
         this.postgres = new Postgres();
     }
 
-    public static get instance(): Db {
+    public static getInstance(): Db {
         return this._instance;
     }
 
@@ -19,8 +20,10 @@ export class Db {
     }
 
     add(user: User): Promise<User> {
+        console.log(`Adding user: ${JSON.stringify(user)}`);
         return this.postgres.create(user);
     }
+
 
     getUserById(userId: string): Promise<User> {
         return this.postgres.getUserById(userId);

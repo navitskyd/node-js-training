@@ -1,12 +1,13 @@
-import {User} from "../entities/User";
-import {Db} from "./db";
+import { User } from '../entities/User';
+import { Db } from './db';
 
-const dbService = Db.instance;
+const dbService = Db.getInstance();
 
 export class UserService {
     public static _instance: UserService = new UserService();
 
     private constructor() {
+        console.log('Create User service');
     }
 
     public static getInstance(): UserService {
@@ -30,8 +31,8 @@ export class UserService {
         return dbService.deleteUserById(userId);
     }
 
-    convertObject(body: any) {
-        let user = new User();
+    convertObject(body: any): User {
+        const user = new User();
         user.login = body.login;
         user.age = body.age;
         user.password = body.password;

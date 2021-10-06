@@ -1,3 +1,3 @@
-export interface Route{
-    registerResources();
+export interface Route {
+    registerResources(): void;
 }
