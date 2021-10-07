@@ -1,4 +1,4 @@
-import { User } from '../entities/User';
+import { User } from '../entities/user';
 import { Db } from './db';
 
 const dbService = Db.getInstance();
@@ -14,40 +14,32 @@ export class UserService {
         return this._instance;
     }
 
-    getAutoSuggestUsers(loginSubstring: string | undefined, limit: number): User[] {
-        let result = dbService.getUsers();
-        if (loginSubstring) {
-            result = result
-                .filter(user => user.login.includes(loginSubstring))
-                .sort((a, b) => a.login > b.login ? 1 : -1);
-        }
+    findByLogin(loginSubstring: string, limit: number): Promise<User[]> {
         limit = limit || 5;
-        return result.slice(0, limit);
+        return dbService.getUsersByLogin(loginSubstring, limit);
     }
 
-    findUserByID(id: string): User | null {
+    findByID(id: string): Promise<User> {
         return dbService.getUserById(id);
     }
 
-    getAll(): User[] {
-        return dbService.getUsers();
+    create(user: User): Promise<any> {
+        return dbService.add(user);
     }
 
-    createUser(user: User): User | null {
-        return dbService.add(user) ? user : null;
+    delete(userId: string) {
+        return dbService.deleteUserById(userId);
     }
 
-    deleteUser(userId: string): User | null {
-        const userById = dbService.getUserById(userId);
-        userById && userById.delete();
-        return userById;
-    }
-
-    convertObject(body:User): User {
+    convert(customObject: User): User {
         const user = new User();
-        user.login = body.login;
-        user.age = body.age;
-        user.password = body.password;
+        user.login = customObject.login;
+        user.age = customObject.age;
+        user.password = customObject.password;
         return user;
+    }
+
+    markForDelete(userId: string) {
+        return dbService.markForDeleteUserById(userId);
     }
 }

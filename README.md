@@ -1,25 +1,20 @@
 # node-js-training
 
 # PSQL coonect
-`psql -h ec2-176-34-116-203.eu-west-1.compute.amazonaws.com -U eivxumromuftzr -d dcemgn3r8jnro3`
+`psql -h hattie.db.elephantsql.com -U qryhpedm -d qryhpedm`
 
 **Host**
-ec2-176-34-116-203.eu-west-1.compute.amazonaws.com
+hattie.db.elephantsql.com
 
 **Database**
-dcemgn3r8jnro3
+qryhpedm
 
 **User**
-eivxumromuftzr
+qryhpedm
 
 **Port**
 5432
 
 **Password**
-ce460bff27a93605d549f05028a85e342760ec647eed41bbb1d060c61698f446
+kF6vzRNHlUUXYnFQpWGJTaA964ZbU30u
 
-**URI**
-postgres://eivxumromuftzr:ce460bff27a93605d549f05028a85e342760ec647eed41bbb1d060c61698f446@ec2-176-34-116-203.eu-west-1.compute.amazonaws.com:5432/dcemgn3r8jnro3
-
-**Heroku CLI**
-heroku pg:psql postgresql-convex-13627 --app postgres-training1
