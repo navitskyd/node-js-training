@@ -43,7 +43,7 @@ export class UserService {
         return userById;
     }
 
-    convertObject(body: any): User {
+    convertObject(body:User): User {
         const user = new User();
         user.login = body.login;
         user.age = body.age;

@@ -1,6 +1,6 @@
 import csv from 'csvtojson';
 import fs from 'fs';
-import {pipeline} from 'stream';
+import { pipeline } from 'stream';
 
 const csvFilePath = './csv/nodejs-hw1-ex1.csv';
 

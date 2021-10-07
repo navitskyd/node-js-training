@@ -50,6 +50,9 @@ function addRandomUser() {
             raw: JSON.stringify(value)
         }
     }, (err, res) => {
+        if (err) {
+            console.error(err);
+        }
         console.log(res);
     });
 }

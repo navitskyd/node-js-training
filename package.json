@@ -3,23 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/task.1.1-reverse-string.js",
-  "type1": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "task1.1": "nodemon src/task.1.1-reverse-string.js",
-    "task1.2": "nodemon src/task.1.2-csv-to-json.js",
-    "task2": "nodemon src/users/start.ts",
-
     "users": "nodemon src/users-server/start.ts",
-
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-
-    "lint": "eslint -- src/users-server/**",
+    "lint": "eslint -- src/**",
     "build:types": "tsc --emitDeclarationOnly",
     "prebuild": "npm run lint ",
-    "build": "npx babel src/users-server --out-dir dist --extensions \".ts,.tsx\" --source-maps true"
-
+    "build": "npx babel src --out-dir dist --extensions \".ts,.tsx,.js\" --source-maps true"
   },
   "repository": {
     "type": "git",

@@ -19,7 +19,7 @@ export class ApiUsersRoute extends BaseRoute {
         super(app, basePath);
     }
 
-    registerResources() {
+    registerResources():void {
         this.getRouter()
             .get('/', (req, res) => {
                 let { limit, login } = req.query;
