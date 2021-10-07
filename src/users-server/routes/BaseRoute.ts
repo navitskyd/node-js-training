@@ -1,4 +1,5 @@
-import express, { Application, Router } from 'express';
+import * as express from 'express';
+import { Application, Router } from 'express';
 import { Route } from './Route';
 
 export abstract class BaseRoute implements Route {

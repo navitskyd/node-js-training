@@ -32,6 +32,8 @@
     "express-joi-validation": "^5.0.0",
     "joi": "^17.4.2",
     "knex": "^0.95.11",
+    "core-js": "^3.18.2",
+    "regenerator-runtime": "^0.13.9",
     "pg": "^8.7.1"
   },
   "devDependencies": {

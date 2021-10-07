@@ -18,14 +18,15 @@ const validator = createValidator();
 const userService = UserService.getInstance();
 
 const ROOT_URL = '/';
-const USER_URL = `${ROOT_URL  }:userId`;
+const USER_URL = `${ROOT_URL}:userId`;
 
 export class ApiUsersRoute extends BaseRoute {
     constructor(app: Application, basePath: string) {
         super(app, basePath);
     }
 
-    registerResources() {
+    registerResources(): void {
+        console.log('Register Router resources!');
         this.getRouter()
             .get(ROOT_URL, validator.query(limitSchema), async (req, res) => {
                 let { limit, login } = req.query;
@@ -41,11 +42,13 @@ export class ApiUsersRoute extends BaseRoute {
                         .catch((err) => {
                             res.status(409).json(`User was not created: ${err}`);
                         });
-                    console.log(typeof userCreated);
+
                     if (userCreated) {
-                        res.send(`User ${user.id} created.`);
-                    } else {
-                        res.status(409).json(`Unexpected response: ${JSON.stringify(userCreated)}`);
+                        if (userCreated.rowCount === 1) {
+                            res.send(`User ${user.id} created.`);
+                        } else {
+                            res.status(409).json(`Unexpected result: ${JSON.stringify(userCreated)}`);
+                        }
                     }
                 })
             .get(USER_URL, async (req, res) => {

@@ -23,7 +23,7 @@ export class UserService {
         return dbService.getUserById(id);
     }
 
-    createUser(user: User): Promise<User> {
+    createUser(user: User): Promise<any> {
         return dbService.add(user);
     }
 

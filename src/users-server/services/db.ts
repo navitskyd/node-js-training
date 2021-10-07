@@ -19,7 +19,7 @@ export class Db {
         return this.postgres.getUsersByLogin(loginSubstring, limit);
     }
 
-    add(user: User): Promise<User> {
+    add(user: User): Promise<any> {
         console.log(`Adding user: ${JSON.stringify(user)}`);
         return this.postgres.create(user);
     }

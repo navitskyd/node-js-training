@@ -1,6 +1,7 @@
-import express, {Router} from 'express';
-import {Db} from "../services/db";
-import {User} from "../entities/User";
+import * as express from 'express';
+import { Router } from 'express';
+import { Db } from '../services/db';
+import { User } from '../entities/User';
 
 const usersDbService = Db.instance;
 
@@ -34,7 +35,7 @@ export class ApiUsers {
             user.password = body.password;
 
             if (usersDbService.add(user)) {
-                res.send("User " + user.id + " created.");
+                res.send('User ' + user.id + ' created.');
             } else {
                 //next();
             }
@@ -44,7 +45,7 @@ export class ApiUsers {
             let inputId = req.param('userId');
             usersDbService.getUserById(inputId).delete();
             //filter(user=>user.id===req.param('userId'));
-            res.sendStatus(202)
+            res.sendStatus(202);
         });
     }
 }
