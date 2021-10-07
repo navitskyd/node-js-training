@@ -7,6 +7,6 @@ const rl = readline.createInterface({
 });
 
 rl.on('line', (line) => {
-    console.log(Array.from(line).reverse().join(""));
-})
+    console.log(Array.from(line).reverse().join(''));
+});
 

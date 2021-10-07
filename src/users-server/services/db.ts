@@ -1,30 +1,34 @@
-import {User} from "../entities/User";
+import { User } from '../entities/User';
 
 export class Db {
     private static _instance: Db = new Db();
 
     private constructor() {
+        console.log('Create DB service');
     }
 
-    public static get instance(): Db {
+    public static getInstance(): Db {
         return this._instance;
     }
 
     private _users: User[] = [];
     private ids: string[] = [];
 
-    get users(): User[] {
+    getUsers(): User[] {
         return this._users;
     }
 
-    add(user: User) {
+    add(user: User) :boolean {
+        console.log(`Adding user: ${JSON.stringify(user)}`);
+
         this._users.push(user);
         this.ids.push(user.id);
-        return Math.random() > 0.5;
+        console.log(`Total users: ${this._users.length}`);
+        return true;
     }
 
-    getUserById(userId: string): User {
-        let index = this.ids.indexOf(userId);
+    getUserById(userId: string): User | null {
+        const index = this.ids.indexOf(userId);
         if (index >= 0) {
             return this._users[index];
         }
