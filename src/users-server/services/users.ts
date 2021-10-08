@@ -1,13 +1,13 @@
 import { User } from '../entities/user';
-import { Db } from './db';
-
-const dbService = Db.getInstance();
+import { Postgres } from './postgres';
 
 export class UserService {
     public static _instance: UserService = new UserService();
+    private postgres: Postgres;
 
     private constructor() {
         console.log('Create User service');
+        this.postgres = new Postgres();
     }
 
     public static getInstance(): UserService {
@@ -16,19 +16,20 @@ export class UserService {
 
     findByLogin(loginSubstring: string, limit: number): Promise<User[]> {
         limit = limit || 5;
-        return dbService.getUsersByLogin(loginSubstring, limit);
+        return this.postgres.getUsersByLogin(loginSubstring, limit);
     }
 
     findByID(id: string): Promise<User> {
-        return dbService.getUserById(id);
+        return this.postgres.getUserById(id);
     }
 
     create(user: User): Promise<any> {
-        return dbService.add(user);
+        console.log(`Adding user: ${JSON.stringify(user)}`);
+        return this.postgres.create(user);
     }
 
     delete(userId: string) {
-        return dbService.deleteUserById(userId);
+        return this.postgres.deleteUserById(userId);
     }
 
     convert(customObject: User): User {
@@ -40,6 +41,6 @@ export class UserService {
     }
 
     markForDelete(userId: string) {
-        return dbService.markForDeleteUserById(userId);
+        return this.postgres.markForDeleteUserById(userId);
     }
 }

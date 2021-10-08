@@ -52,7 +52,7 @@ export class ApiUsersRoute extends Base {
                 if (deleteOperation === 1) {
                     res.send(`User with id ${userId} was deleted.`);
                 } else {
-                    res.status(409).json(`User(s) with id ${userId} were deleted: ${deleteOperation}`);
+                    res.status(409).json(`User(s) with id ${userId} were not found or already deleted: ${deleteOperation}`);
                 }
             });
     }
