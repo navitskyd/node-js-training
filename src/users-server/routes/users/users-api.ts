@@ -11,7 +11,7 @@ const userService = UserService.getInstance();
 const ROOT_URL = '/';
 const USER_URL = `${ROOT_URL}:userId`;
 
-export class ApiUsersRoute extends Base {
+export default class ApiUsersRoute extends Base {
     constructor(app: Application, basePath: string) {
         super(app, basePath);
     }
