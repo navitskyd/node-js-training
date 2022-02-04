@@ -25,10 +25,15 @@ export default class ApiUsersRoute extends Base {
             })
             .post(ROOT_URL, validator.body(userCreateSchema), async (req: ValidatedRequest<UserCreateValidatedSchema>, res) => {
                 const user = userService.convert(req.body);
-                const userCreated = await userService.create(user)
-                    .catch((err) => {
-                        res.status(409).json(`User was not created: ${err}`);
-                    });
+                let userCreated: any = null;
+                try {
+                    userCreated = await userService.create(user)
+                        .catch((err) => {
+                            res.status(409).json(`User was not created: ${err}`);
+                        });
+                } catch (err) {
+                    res.status(409).json(`ERROR: User was not created: ${err}`);
+                }
 
                 if (userCreated) {
                     if (userCreated.rowCount === 1) {
