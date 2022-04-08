@@ -19,7 +19,7 @@
     "isolatedModules": true
   },
   "include": [
-    "src/users-server"
+    "src"
     // <-- change this to where your source files are
   ]
 }

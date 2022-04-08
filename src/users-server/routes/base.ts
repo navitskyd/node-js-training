@@ -1,7 +1,7 @@
 import express, { Application, Router } from 'express';
-import { Route } from './Route';
+import { Route } from './route';
 
-export abstract class BaseRoute implements Route {
+export abstract class Base implements Route {
     private readonly _router: Router;
 
     getRouter(): Router {

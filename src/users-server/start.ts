@@ -1,5 +1,5 @@
 import express from 'express';
-import { ApiUsersRoute } from './routes/api';
+import { default as ApiUsersRoute } from './routes/users/users-api';
 
 const app = express();
 
