@@ -1,4 +1,5 @@
-import { User } from '../entities/User';
+import { User } from '../entities/user';
+import { Group } from '../entities/group';
 import knexLib from 'knex';
 
 const knex = knexLib({
@@ -68,5 +69,32 @@ export class Postgres {
 
     markForDeleteUserById(userId: string) {
         return knex('users').where({ id: userId, isDeleted: false }).update({ isDeleted: true });
+    }
+
+    deleteGroupById(id: string) {
+        return knex('groups').where({ id }).del();
+    }
+
+    createGroup(group: Group): Promise<any> {
+        return knex('groups').insert({
+            id: group.id,
+            name: group.name,
+            permissions: group.permissions
+        });
+    }
+
+    updateGroup(id: string, group: Group) {
+        return knex('groups').update({
+            name: group.name,
+            permissions: group.permissions
+        }).where('id', id);
+    }
+
+    getGroupById(id: string): Promise<Group> {
+        return knex('groups').where({ id }).first();
+    }
+
+    getAllGroups(): Promise<Group[]> {
+        return knex('groups');
     }
 }

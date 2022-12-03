@@ -23,7 +23,7 @@ export class UserService {
         return this.postgres.getUserById(id);
     }
 
-    create(user: User): Promise<any> {
+    create(user: User): Promise<User> {
         console.log(`Adding user: ${JSON.stringify(user)}`);
         return this.postgres.create(user);
     }
