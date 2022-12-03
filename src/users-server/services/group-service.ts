@@ -33,4 +33,8 @@ export class GroupService {
     delete(id: string) {
         return this.postgres.deleteGroupById(id);
     }
+
+    addUsers(groupId: string, usersIds: string[]) :Promise<any> {
+        return this.postgres.addUsers(groupId, usersIds);
+    }
 }

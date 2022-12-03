@@ -6,6 +6,7 @@ import { Application } from 'express';
 const groupService = GroupService.getInstance();
 const ROOT_URL = '/';
 const GROUP_URL = `${ROOT_URL}:groupId`;
+const GROUP_USERS_URL = `${ROOT_URL}:groupId/:usersIds`;
 
 export default class ApiGroupsRoute extends Base {
     constructor(app: Application, basePath: string) {
@@ -44,6 +45,12 @@ export default class ApiGroupsRoute extends Base {
             .put(GROUP_URL, async (req, res) => {
                 await groupService.update(req.params['groupId'], req.body);
                 res.send('updated');
+            })
+            .put(GROUP_USERS_URL, async (req, res) => {
+                const groupId:string = req.params['groupId'];
+                const usersIds:string[] = req.params['usersIds'].split(',');
+                await groupService.addUsers(groupId, usersIds);
+                res.send('Users were added to group');
             })
             .delete(GROUP_URL, async (req, res) => {
                 await groupService.delete(req.params['groupId']);

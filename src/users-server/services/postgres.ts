@@ -1,6 +1,7 @@
 import { User } from '../entities/user';
 import { Group } from '../entities/group';
 import knexLib from 'knex';
+import crypto from 'crypto';
 
 const knex = knexLib({
     client: 'pg',
@@ -77,7 +78,7 @@ export class Postgres {
 
     createGroup(group: Group): Promise<any> {
         return knex('groups').insert({
-            id: group.id,
+            id: group.id || crypto.randomUUID(),
             name: group.name,
             permissions: group.permissions
         });
@@ -96,5 +97,20 @@ export class Postgres {
 
     getAllGroups(): Promise<Group[]> {
         return knex('groups');
+    }
+
+    async addUsers(groupId: string, usersIds: string[]): Promise<any> {
+        const trx = await knex.transaction();
+
+        const trxObj = trx('UserGroup');
+        const data:any[] = [];
+        usersIds.forEach(userId => {
+            data.push({ userId, groupId, id: crypto.randomUUID() });
+        });
+
+        trxObj
+            .insert(data)
+            .then(trx.commit)
+            .catch(trx.rollback);
     }
 }
