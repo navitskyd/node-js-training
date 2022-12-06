@@ -1,5 +1,7 @@
-import { User } from '../entities/User';
+import { User } from '../entities/user';
+import { Group } from '../entities/group';
 import knexLib from 'knex';
+import crypto from 'crypto';
 
 const knex = knexLib({
     client: 'pg',
@@ -68,5 +70,47 @@ export class Postgres {
 
     markForDeleteUserById(userId: string) {
         return knex('users').where({ id: userId, isDeleted: false }).update({ isDeleted: true });
+    }
+
+    deleteGroupById(id: string) {
+        return knex('groups').where({ id }).del();
+    }
+
+    createGroup(group: Group): Promise<any> {
+        return knex('groups').insert({
+            id: group.id || crypto.randomUUID(),
+            name: group.name,
+            permissions: group.permissions
+        });
+    }
+
+    updateGroup(id: string, group: Group) {
+        return knex('groups').update({
+            name: group.name,
+            permissions: group.permissions
+        }).where('id', id);
+    }
+
+    getGroupById(id: string): Promise<Group> {
+        return knex('groups').where({ id }).first();
+    }
+
+    getAllGroups(): Promise<Group[]> {
+        return knex('groups');
+    }
+
+    async addUsers(groupId: string, usersIds: string[]): Promise<any> {
+        const trx = await knex.transaction();
+
+        const trxObj = trx('UserGroup');
+        const data:any[] = [];
+        usersIds.forEach(userId => {
+            data.push({ userId, groupId, id: crypto.randomUUID() });
+        });
+
+        trxObj
+            .insert(data)
+            .then(trx.commit)
+            .catch(trx.rollback);
     }
 }

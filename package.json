@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/task.1.1-reverse-string.js",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "type-check": "tsc --noEmit",
@@ -28,6 +27,7 @@
   "homepage": "https://github.com/navitskyd/node-js-training#readme",
   "dependencies": {
     "@babel/runtime": "^7.15.4",
+    "core-js": "^3.26.1",
     "csvtojson": "^2.0.10",
     "express": "^4.17.1",
     "express-joi-validation": "^5.0.0",
